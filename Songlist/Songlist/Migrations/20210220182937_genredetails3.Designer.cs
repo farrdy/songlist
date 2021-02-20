@@ -10,8 +10,8 @@ using Songlist.Models;
 namespace Songlist.Migrations
 {
     [DbContext(typeof(SongContext))]
-    [Migration("20210217190200_Initial")]
-    partial class Initial
+    [Migration("20210220182937_genredetails3")]
+    partial class genredetails3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,12 +21,51 @@ namespace Songlist.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Songlist.Models.Genre", b =>
+                {
+                    b.Property<string>("GenreId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GenreId");
+
+                    b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            GenreId = "M",
+                            Name = "Metal"
+                        },
+                        new
+                        {
+                            GenreId = "R",
+                            Name = "Rap"
+                        },
+                        new
+                        {
+                            GenreId = "H",
+                            Name = "Hip Hop"
+                        },
+                        new
+                        {
+                            GenreId = "RC",
+                            Name = "Rock"
+                        });
+                });
+
             modelBuilder.Entity("Songlist.Models.Song", b =>
                 {
                     b.Property<int>("SongId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("GenreId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -42,12 +81,15 @@ namespace Songlist.Migrations
 
                     b.HasKey("SongId");
 
+                    b.HasIndex("GenreId");
+
                     b.ToTable("Songs");
 
                     b.HasData(
                         new
                         {
                             SongId = 1,
+                            GenreId = "M",
                             Name = "Master of Puppets",
                             Rating = 5,
                             Year = 1980
@@ -55,6 +97,7 @@ namespace Songlist.Migrations
                         new
                         {
                             SongId = 2,
+                            GenreId = "RC",
                             Name = "Wonderwall",
                             Rating = 4,
                             Year = 1990
@@ -62,10 +105,20 @@ namespace Songlist.Migrations
                         new
                         {
                             SongId = 3,
+                            GenreId = "R",
                             Name = "Lose Yourself",
                             Rating = 1,
                             Year = 2005
                         });
+                });
+
+            modelBuilder.Entity("Songlist.Models.Song", b =>
+                {
+                    b.HasOne("Songlist.Models.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
