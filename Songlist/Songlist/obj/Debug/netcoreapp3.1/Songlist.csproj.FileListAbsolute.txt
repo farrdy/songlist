@@ -66,3 +66,4 @@ C:\Users\Developer2019\source\repos\songlist\Songlist\Songlist\obj\Debug\netcore
 C:\Users\Developer2019\source\repos\songlist\Songlist\Songlist\obj\Debug\netcoreapp3.1\Songlist.dll
 C:\Users\Developer2019\source\repos\songlist\Songlist\Songlist\obj\Debug\netcoreapp3.1\Songlist.pdb
 C:\Users\Developer2019\source\repos\songlist\Songlist\Songlist\obj\Debug\netcoreapp3.1\Songlist.genruntimeconfig.cache
+C:\Users\Developer2019\source\repos\songlist\Songlist\Songlist\obj\Debug\netcoreapp3.1\Songlist.csprojAssemblyReference.cache

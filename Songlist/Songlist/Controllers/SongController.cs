@@ -21,6 +21,7 @@ namespace Songlist.Controllers
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
+            ViewBag.Genres = context.Genres.OrderBy(m => m.Name).ToList();
             return View("Edit",new Song());
         }
 
@@ -28,7 +29,7 @@ namespace Songlist.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.Action = "Edit";
-
+            ViewBag.Genres = context.Genres.OrderBy(m => m.Name).ToList();
             var song = context.Songs.Find(id);
             return View(song);
         }
@@ -54,6 +55,7 @@ namespace Songlist.Controllers
             else {
 
                 ViewBag.Action = song.SongId == 0 ? "Add" : "Edit";
+                ViewBag.Genres = context.Genres.OrderBy(m => m.Name).ToList();
                 return View(song);
             }        
            
